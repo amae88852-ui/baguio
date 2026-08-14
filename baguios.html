@@ -1,0 +1,1023 @@
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TAKOYAKI TOWN - Japanese Street Food Heaven</title>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #ff3e3e;
+            --primary-dark: #d62828;
+            --secondary: #ffb703;
+            --accent: #fb8500;
+            --bg-dark: #1a0f0f;
+            --bg-card: rgba(255, 255, 255, 0.95);
+            --text-dark: #2b2d42;
+            --text-light: #f8f9fa;
+            --shadow-3d: 0 10px 20px rgba(0,0,0,0.2), 0 6px 6px rgba(0,0,0,0.23);
+            --glow: 0 0 15px rgba(255, 62, 62, 0.6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: linear-gradient(135deg, #2b1055, #7597de);
+            background-attachment: fixed;
+            color: var(--text-dark);
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding-bottom: 50px;
+        }
+
+        /* 3D Header & Navbar */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(26, 15, 15, 0.92);
+            backdrop-filter: blur(10px);
+            border-bottom: 4px solid var(--primary);
+            box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+            padding: 10px 20px;
+        }
+
+        .nav-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            font-size: 2.2rem;
+            color: var(--primary);
+            filter: drop-shadow(2px 4px 0px #000);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .logo-text {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.8rem;
+            color: #fff;
+            text-shadow: 3px 3px 0px var(--primary), 5px 5px 0px #000;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+            list-style: none;
+        }
+
+        .nav-item button {
+            background: linear-gradient(145deg, #2a2a2a, #151515);
+            color: #fff;
+            border: 2px solid var(--secondary);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 3px 3px 0px var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-item button:hover, .nav-item button.active {
+            transform: translateY(-3px) scale(1.05);
+            background: var(--primary);
+            border-color: #fff;
+            box-shadow: 0 0 15px var(--primary);
+            color: #fff;
+        }
+
+        /* Hamburger Menu for Mobile */
+        .hamburger {
+            display: none;
+            font-size: 1.8rem;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        /* Search Bar */
+        .search-container {
+            display: flex;
+            align-items: center;
+            background: #fff;
+            border-radius: 25px;
+            padding: 4px 15px;
+            box-shadow: inset 2px 2px 5px rgba(0,0,0,0.2), 3px 3px 0px rgba(0,0,0,0.3);
+            border: 2px solid var(--accent);
+            width: 250px;
+        }
+
+        .search-container input {
+            border: none;
+            outline: none;
+            padding: 6px;
+            width: 100%;
+            font-size: 0.9rem;
+        }
+
+        .search-container i {
+            color: var(--accent);
+        }
+
+        /* Main Layout */
+        .main-wrapper {
+            max-width: 1400px;
+            margin: 20px auto;
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 25px;
+            padding: 0 15px;
+        }
+
+        .content-area {
+            width: 100%;
+        }
+
+        /* Right Side Shopee-Style Cart Drawer */
+        .cart-sidebar {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: var(--shadow-3d);
+            border: 3px solid var(--secondary);
+            position: sticky;
+            top: 90px;
+            height: calc(100vh - 110px);
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(5px);
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px dashed #ccc;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .cart-header h3 {
+            font-family: 'Fredoka One', cursive;
+            color: var(--primary-dark);
+            font-size: 1.4rem;
+        }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            box-shadow: 2px 2px 8px rgba(0,0,0,0.08);
+            border: 1px solid #eee;
+        }
+
+        .cart-item img {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+        }
+
+        .cart-item-price {
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+
+        .qty-btn {
+            background: #e0e0e0;
+            border: none;
+            width: 22px;
+            height: 22px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .cart-footer {
+            border-top: 2px dashed #ccc;
+            padding-top: 15px;
+            margin-top: 10px;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #111;
+        }
+
+        .btn-checkout {
+            width: 100%;
+            background: linear-gradient(145deg, #ff4e50, #f9d423);
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 78, 80, 0.4);
+            text-shadow: 1px 1px 2px #000;
+            transition: transform 0.2s ease;
+        }
+
+        .btn-checkout:hover {
+            transform: scale(1.03);
+        }
+
+        /* 3D Card Section Styles */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Hero Banner */
+        .hero-banner {
+            background: linear-gradient(45deg, #ff0055, #ff5000);
+            border-radius: 20px;
+            padding: 30px;
+            color: white;
+            box-shadow: var(--shadow-3d);
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid #fff;
+        }
+
+        .hero-banner h1 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2.5rem;
+            text-shadow: 3px 3px 0 #000;
+            margin-bottom: 10px;
+        }
+
+        .hero-banner p {
+            font-size: 1.1rem;
+            max-width: 600px;
+        }
+
+        .section-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.8rem;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+            margin: 20px 0 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        /* 3D Product Cards */
+        .product-card {
+            background: var(--bg-card);
+            border-radius: 18px;
+            padding: 15px;
+            box-shadow: var(--shadow-3d);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            border: 2px solid #fff;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px) rotateX(5deg) scale(1.02);
+            box-shadow: 0 20px 30px rgba(0,0,0,0.3);
+        }
+
+        .product-img-wrapper {
+            position: relative;
+            width: 100%;
+            height: 150px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .product-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-img-wrapper img {
+            transform: scale(1.1);
+        }
+
+        .badge-category {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: rgba(0,0,0,0.7);
+            color: #fff;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .product-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+        }
+
+        .product-desc {
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 10px;
+            height: 36px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .product-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-price {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.2rem;
+            color: var(--primary-dark);
+        }
+
+        .btn-add-cart {
+            background: var(--secondary);
+            border: none;
+            color: #000;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.1rem;
+            box-shadow: 2px 2px 0px #000;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-add-cart:hover {
+            transform: scale(1.15) rotate(10deg);
+            background: var(--primary);
+            color: #fff;
+        }
+
+        /* Order History Style */
+        .history-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 12px;
+            box-shadow: 2px 4px 10px rgba(0,0,0,0.1);
+            border-left: 5px solid var(--primary);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 25px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 450px;
+            box-shadow: var(--shadow-3d);
+            position: relative;
+            animation: popIn 0.3s ease;
+        }
+
+        .close-modal {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #888;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            outline: none;
+        }
+
+        /* Floating Cart Icon for Mobile */
+        .mobile-cart-btn {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .mobile-cart-count {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--secondary);
+            color: black;
+            font-size: 0.8rem;
+            font-weight: bold;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .main-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .cart-sidebar {
+                position: fixed;
+                right: -100%;
+                top: 0;
+                height: 100vh;
+                width: 320px;
+                z-index: 1500;
+                transition: right 0.3s ease;
+                border-radius: 0;
+            }
+
+            .cart-sidebar.open {
+                right: 0;
+            }
+
+            .mobile-cart-btn {
+                display: flex;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(26, 15, 15, 0.98);
+                flex-direction: column;
+                padding: 20px;
+                gap: 10px;
+                box-shadow: 0 10px 10px rgba(0,0,0,0.5);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .search-container {
+                width: 100%;
+                margin-top: 10px;
+            }
+
+            .nav-container {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Navigation Bar -->
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-circle-dot logo-icon"></i>
+                <span class="logo-text">TAKOYAKI TOWN</span>
+            </a>
+
+            <div class="hamburger" id="hamburgerBtn">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+
+            <ul class="nav-links" id="navLinks">
+                <li class="nav-item">
+                    <button class="active" onclick="switchTab('home')"><i class="fa-solid fa-house"></i> HOME</button>
+                </li>
+                <li class="nav-item">
+                    <button onclick="switchTab('promos')"><i class="fa-solid fa-tags"></i> PROMOS</button>
+                </li>
+                <li class="nav-item">
+                    <button onclick="switchTab('bestsellers')"><i class="fa-solid fa-fire"></i> BEST SELLERS</button>
+                </li>
+                <li class="nav-item">
+                    <button onclick="switchTab('menu')"><i class="fa-solid fa-utensils"></i> MENU</button>
+                </li>
+                <li class="nav-item">
+                    <button onclick="switchTab('about')"><i class="fa-solid fa-circle-info"></i> ABOUT US</button>
+                </li>
+                <li class="nav-item">
+                    <button onclick="switchTab('contact')"><i class="fa-solid fa-phone"></i> CONTACT/ORDERS</button>
+                </li>
+            </ul>
+
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search menu..." onkeyup="filterProducts()">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Floating Mobile Cart Button -->
+    <div class="mobile-cart-btn" onclick="toggleMobileCart()">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <div class="mobile-cart-count" id="mobileCartCount">0</div>
+    </div>
+
+    <!-- Main Content Layout -->
+    <div class="main-wrapper">
+        <div class="content-area">
+
+            <!-- TAB 1: HOME -->
+            <div id="tab-home" class="tab-content active">
+                <div class="hero-banner">
+                    <h1>WELCOME TO TAKOYAKI TOWN! 🐙</h1>
+                    <p>Authentic Japanese-style Takoyaki made with love for students and food lovers. Tasty, rich in toppings, and highly affordable!</p>
+                </div>
+
+                <div class="section-title"><i class="fa-solid fa-bolt" style="color:var(--secondary)"></i> Featured Special Highlights</div>
+                <div class="product-grid" id="homeFeaturedGrid"></div>
+            </div>
+
+            <!-- TAB 2: PROMOS -->
+            <div id="tab-promos" class="tab-content">
+                <div class="section-title"><i class="fa-solid fa-gift" style="color:var(--secondary)"></i> Exclusive Promos & Discounts</div>
+                <p style="color:#fff; margin-bottom:15px;">Grab our limited-time bundles and student special promos!</p>
+                <div class="product-grid" id="promosGrid"></div>
+            </div>
+
+            <!-- TAB 3: BEST SELLERS -->
+            <div id="tab-bestsellers" class="tab-content">
+                <div class="section-title"><i class="fa-solid fa-crown" style="color:var(--secondary)"></i> Customer Favorites & Best Sellers</div>
+                <p style="color:#fff; margin-bottom:15px;">The most ordered and loved takoyaki & drinks in town!</p>
+                <div class="product-grid" id="bestSellersGrid"></div>
+            </div>
+
+            <!-- TAB 4: MENU (All 50+ Products) -->
+            <div id="tab-menu" class="tab-content">
+                <div class="section-title"><i class="fa-solid fa-book-open" style="color:var(--secondary)"></i> Full Takoyaki & Beverage Menu</div>
+                <div class="product-grid" id="fullMenuGrid"></div>
+            </div>
+
+            <!-- TAB 5: ABOUT US -->
+            <div id="tab-about" class="tab-content">
+                <div class="hero-banner" style="background: linear-gradient(135deg, #2b1055, #7597de);">
+                    <h1>ABOUT TAKOYAKI TOWN</h1>
+                    <p>Takoyaki Town is an online food shop that sells delicious and affordable Japanese-style takoyaki with different fillings, sauces, and toppings. It is made for students and food lovers who want a tasty snack at an affordable price.</p>
+                </div>
+                <div style="background: rgba(255,255,255,0.95); padding: 25px; border-radius: 20px; box-shadow: var(--shadow-3d);">
+                    <h3 style="color: var(--primary-dark); margin-bottom: 10px;"><i class="fa-solid fa-bullseye"></i> Our Mission</h3>
+                    <p style="margin-bottom: 15px;">To bring authentic, mouth-watering, and wallet-friendly Japanese street food right to your doorstep with supreme convenience!</p>
+                    <h3 style="color: var(--primary-dark); margin-bottom: 10px;"><i class="fa-solid fa-eye"></i> Our Vision</h3>
+                    <p>To be the #1 go-to Takoyaki brand for students, families, and street food enthusiasts across the nation!</p>
+                </div>
+            </div>
+
+            <!-- TAB 6: CONTACT / ORDERS -->
+            <div id="tab-contact" class="tab-content">
+                <div class="section-title"><i class="fa-solid fa-headset" style="color:var(--secondary)"></i> Contact Us & Order Info</div>
+                <div style="background: rgba(255,255,255,0.95); padding: 25px; border-radius: 20px; box-shadow: var(--shadow-3d);">
+                    <p style="font-size: 1.1rem; margin-bottom: 15px;">Have questions, special instructions, or catering inquiries? Reach out directly!</p>
+                    <p><i class="fa-solid fa-envelope" style="color: var(--primary);"></i> <strong>Email:</strong> Takoyaki@gmail.com</p>
+                    <p style="margin-top: 10px;"><i class="fa-solid fa-phone" style="color: var(--primary);"></i> <strong>Phone:</strong> 09468797705</p>
+                </div>
+            </div>
+
+            <!-- ORDER HISTORY SECTION (ALWAYS VISIBLE AT BOTTOM OR ACCESSIBLE) -->
+            <div style="margin-top: 40px;">
+                <div class="section-title"><i class="fa-solid fa-clock-rotate-left" style="color:var(--secondary)"></i> Your Order History</div>
+                <div id="orderHistoryContainer">
+                    <p style="color: #fff; opacity: 0.8;">No completed orders yet. Place an order above!</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- RIGHT SIDE SHOPEE-STYLE CART (Persistent) -->
+        <div class="cart-sidebar" id="cartSidebar">
+            <div class="cart-header">
+                <h3><i class="fa-solid fa-cart-shopping"></i> My Cart</h3>
+                <span style="cursor:pointer; display:none;" id="closeCartBtn" onclick="toggleMobileCart()"><i class="fa-solid fa-xmark"></i></span>
+            </div>
+
+            <div class="cart-items" id="cartItemsList">
+                <p style="text-align: center; color: #777; margin-top: 30px;">Your cart is empty.<br>Start adding delicious takoyaki!</p>
+            </div>
+
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span id="cartTotalAmount">₱0.00</span>
+                </div>
+                <button class="btn-checkout" onclick="openCheckoutModal()">CHECKOUT NOW</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- LOGIN / CHECKOUT MODAL -->
+    <div class="modal" id="checkoutModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeCheckoutModal()">&times;</span>
+            <h2 style="font-family:'Fredoka One', cursive; color:var(--primary-dark); margin-bottom: 15px;">
+                <i class="fa-solid fa-user-lock"></i> Customer Checkout
+            </h2>
+
+            <form id="checkoutForm" onsubmit="handleCheckout(event)">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" required placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label>Delivery Address</label>
+                    <input type="text" required placeholder="Complete delivery address">
+                </div>
+                <div class="form-group">
+                    <label>Contact Phone Number</label>
+                    <input type="tel" required placeholder="09XXXXXXXXX" value="09468797705">
+                </div>
+                <div class="form-group">
+                    <label>Payment Method</label>
+                    <select id="paymentMethod" required>
+                        <option value="GCash">GCash</option>
+                        <option value="Cash on Delivery (COD)">Cash on Delivery (COD)</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-checkout" style="width: 100%; margin-top: 10px;">CONFIRM & PLACE ORDER</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Generate 50+ Products Programmatically with diverse image placeholders
+        const productCategories = ["Classic", "Cheesy", "Special", "Spicy", "Drinks", "Bundles"];
+        const products = [];
+
+        const imagePool = [
+            "https://images.unsplash.com/photo-1563245372-f21724e3856d?w=300&auto=format&fit=crop", // Takoyaki 1
+            "https://images.unsplash.com/photo-1617196034796-73dfa7b1fd56?w=300&auto=format&fit=crop", // Takoyaki 2
+            "https://images.unsplash.com/photo-1541544741938-0af808871cc0?w=300&auto=format&fit=crop", // Drinks 1
+            "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=300&auto=format&fit=crop", // Drinks 2
+            "https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=300&auto=format&fit=crop", // Drink 3
+            "https://images.unsplash.com/photo-1525755662778-989d0524087e?w=300&auto=format&fit=crop"  // Japanese food
+        ];
+
+        // Seed 52 Unique Items
+        for (let i = 1; i <= 52; i++) {
+            let category = "Classic";
+            let price = 45 + (i % 5) * 15;
+            let title = `Takoyaki Item ${i}`;
+            let isPromo = i % 4 === 0;
+            let isBest = i % 3 === 0;
+
+            if (i <= 10) {
+                category = "Classic";
+                title = `Classic Octopus Takoyaki ${i}pcs`;
+            } else if (i <= 20) {
+                category = "Cheesy";
+                title = `Double Cheese Overload ${i - 10}pcs`;
+            } else if (i <= 30) {
+                category = "Spicy";
+                title = `Spicy Bacon & Cheese ${i - 20}pcs`;
+            } else if (i <= 40) {
+                category = "Drinks";
+                title = `Japanese Refreshing Drink ${i - 30}`;
+                price = 35 + (i % 4) * 10;
+            } else {
+                category = "Bundles";
+                title = `Super Town Combo Deal ${i - 40}`;
+                price = 120 + (i % 5) * 20;
+            }
+
+            products.push({
+                id: i,
+                title: title,
+                category: category,
+                price: price,
+                desc: `Freshly prepared tasty ${category.toLowerCase()} delicious takoyaki snack!`,
+                img: imagePool[i % imagePool.length],
+                isPromo: isPromo,
+                isBest: isBest
+            });
+        }
+
+        // Cart State
+        let cart = [];
+        let orderHistory = [];
+
+        // Tab Switching Logic
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-item button').forEach(el => el.classList.remove('active'));
+
+            document.getElementById(`tab-${tabId}`).classList.add('active');
+            
+            // Highlight active nav button
+            const activeBtn = Array.from(document.querySelectorAll('.nav-item button')).find(
+                btn => btn.getAttribute('onclick').includes(tabId)
+            );
+            if (activeBtn) activeBtn.classList.add('active');
+
+            // Close mobile menu if open
+            document.getElementById('navLinks').classList.remove('active');
+        }
+
+        // Render Product Grids
+        function renderProducts(items, containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = items.map(p => `
+                <div class="product-card">
+                    <div class="product-img-wrapper">
+                        <span class="badge-category">${p.category}</span>
+                        <img src="${p.img}" alt="${p.title}">
+                    </div>
+                    <div>
+                        <div class="product-title">${p.title}</div>
+                        <div class="product-desc">${p.desc}</div>
+                    </div>
+                    <div class="product-bottom">
+                        <div class="product-price">₱${p.price.toFixed(2)}</div>
+                        <button class="btn-add-cart" onclick="addToCart(${p.id})"><i class="fa-solid fa-plus"></i></button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Add to Cart Logic
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existingItem = cart.find(item => item.id === productId);
+
+            if (existingItem) {
+                existingItem.qty += 1;
+            } else {
+                cart.push({ ...product, qty: 1 });
+            }
+
+            updateCartUI();
+        }
+
+        // Update Cart UI (Shopee Style)
+        function updateCartUI() {
+            const cartItemsContainer = document.getElementById('cartItemsList');
+            const cartTotal = document.getElementById('cartTotalAmount');
+            const mobileCartCount = document.getElementById('mobileCartCount');
+
+            let total = 0;
+            let totalQty = 0;
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p style="text-align: center; color: #777; margin-top: 30px;">Your cart is empty.<br>Start adding delicious takoyaki!</p>';
+            } else {
+                cartItemsContainer.innerHTML = cart.map(item => {
+                    const itemTotal = item.price * item.qty;
+                    total += itemTotal;
+                    totalQty += item.qty;
+
+                    return `
+                        <div class="cart-item">
+                            <img src="${item.img}" alt="${item.title}">
+                            <div class="cart-item-info">
+                                <div class="cart-item-title">${item.title}</div>
+                                <div class="cart-item-price">₱${item.price.toFixed(2)}</div>
+                            </div>
+                            <div style="display:flex; align-items:center; gap:5px;">
+                                <button class="qty-btn" onclick="changeQty(${item.id}, -1)">-</button>
+                                <span style="font-size:0.9rem; font-weight:bold;">${item.qty}</span>
+                                <button class="qty-btn" onclick="changeQty(${item.id}, 1)">+</button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            cartTotal.textContent = `₱${total.toFixed(2)}`;
+            mobileCartCount.textContent = totalQty;
+        }
+
+        function changeQty(productId, delta) {
+            const item = cart.find(i => i.id === productId);
+            if (item) {
+                item.qty += delta;
+                if (item.qty <= 0) {
+                    cart = cart.filter(i => i.id !== productId);
+                }
+            }
+            updateCartUI();
+        }
+
+        // Search Filter
+        function filterProducts() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = products.filter(p => p.title.toLowerCase().includes(query) || p.category.toLowerCase().includes(query));
+            
+            // Switch to Menu tab automatically on search
+            if (query.trim() !== '') {
+                switchTab('menu');
+            }
+            renderProducts(filtered, 'fullMenuGrid');
+        }
+
+        // Checkout Modal Actions
+        function openCheckoutModal() {
+            if (cart.length === 0) {
+                alert("Your cart is empty! Add some delicious takoyaki first.");
+                return;
+            }
+            document.getElementById('checkoutModal').style.display = 'flex';
+        }
+
+        function closeCheckoutModal() {
+            document.getElementById('checkoutModal').style.display = 'none';
+        }
+
+        function handleCheckout(event) {
+            event.preventDefault();
+            const paymentMethod = document.getElementById('paymentMethod').value;
+            const totalAmount = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+            // Add to Order History
+            const orderRecord = {
+                id: 'ORD-' + Math.floor(100000 + Math.random() * 900000),
+                date: new Date().toLocaleString(),
+                items: [...cart],
+                total: totalAmount,
+                payment: paymentMethod
+            };
+
+            orderHistory.unshift(orderRecord);
+            renderOrderHistory();
+
+            // Clear Cart
+            cart = [];
+            updateCartUI();
+            closeCheckoutModal();
+
+            alert(`🎉 Order Placed Successfully via ${paymentMethod}!\nThank you for ordering at Takoyaki Town!`);
+        }
+
+        // Order History Render
+        function renderOrderHistory() {
+            const container = document.getElementById('orderHistoryContainer');
+            if (orderHistory.length === 0) {
+                container.innerHTML = '<p style="color: #fff; opacity: 0.8;">No completed orders yet. Place an order above!</p>';
+                return;
+            }
+
+            container.innerHTML = orderHistory.map(order => `
+                <div class="history-card">
+                    <div style="display:flex; justify-content:space-between; font-weight:bold; color:var(--primary-dark);">
+                        <span>${order.id}</span>
+                        <span>₱${order.total.toFixed(2)}</span>
+                    </div>
+                    <div style="font-size:0.8rem; color:#666; margin: 4px 0;">${order.date} • Paid via <strong>${order.payment}</strong></div>
+                    <div style="font-size:0.85rem; margin-top:8px;">
+                        ${order.items.map(i => `${i.qty}x ${i.title}`).join(', ')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Mobile Cart Toggle
+        function toggleMobileCart() {
+            const cartSidebar = document.getElementById('cartSidebar');
+            cartSidebar.classList.toggle('open');
+            document.getElementById('closeCartBtn').style.display = cartSidebar.classList.contains('open') ? 'block' : 'none';
+        }
+
+        // Hamburger Menu Toggle
+        document.getElementById('hamburgerBtn').addEventListener('click', () => {
+            document.getElementById('navLinks').classList.toggle('active');
+        });
+
+        // Initialize Page Data
+        window.onload = () => {
+            renderProducts(products.slice(0, 8), 'homeFeaturedGrid');
+            renderProducts(products.filter(p => p.isPromo), 'promosGrid');
+            renderProducts(products.filter(p => p.isBest), 'bestSellersGrid');
+            renderProducts(products, 'fullMenuGrid');
+        };
+    </script>
+</body>
+</html>
